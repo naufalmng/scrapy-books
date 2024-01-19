@@ -51,6 +51,8 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     'bookscraper.middlewares.ScrapeOpsFakeHeaderMiddleware': 400,
+    'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': None
     # 'scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk': 500
     # 'rotating_proxies.middlewares.RotatingProxyMiddleware': 500,
     # 'rotating_proxies.middlewares.BanDetectionMiddleware': 600,
@@ -61,7 +63,9 @@ DOWNLOADER_MIDDLEWARES = {
 # EXTENSIONS = {
 #    "scrapy.extensions.telnet.TelnetConsole": None,
 # }
-
+EXTENSIONS = {
+    'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500, 
+}
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
@@ -69,6 +73,7 @@ ITEM_PIPELINES = {
     # "bookscraper.pipelines.SaveToMySQLPipeline": 400,
 }
 SCRAPEOPS_API_KEY = '112dfae1-ceaa-4cf9-aa5e-6b1423fe425a'
+
 SCRAPEOPS_PROXY_ENABLED = True
 
 SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
